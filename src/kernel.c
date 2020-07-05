@@ -14,17 +14,28 @@
 
 #define PAGING_MEMORY (HIGH_MEMORY - LOW_MEMORY)
 #define PAGING_PAGES (PAGING_MEMORY / PAGE_SIZE)
+
+#include "mergeSort.h"
+#include "quickSort.h"
+#include "heapSort.h"
+#include "bubbleSort.h"
+#include <stddef.h>
+//#include "tinyalloc.h"
+
+/*
 //These are the options for the sorting algos
 #define SORT_NAME int64
 #define SORT_TYPE int64_t
 #define SORT_CMP(x, y) ((x) - (y))
-#include "sort.h"
+#include "sort.h" */
 //This is for the connection to the uart
 #include "mini_uart.h"
 #include "printf.h"
-#include "100K.h"
-#define NUMLENGTH 100000
-#define RUNS 10
+
+//Change the input
+#include "10Best.h"
+#define NUMLENGTH 10000
+#define RUNS 1
 
 //These are the helper functions that the sorting algos need to run!
 // This function is required by printf function
@@ -33,7 +44,16 @@ void putc(void *p, char c)
   uart_send(c);
 }
 
-void *realloc(void *ptr, size_t size)
+void *
+memcpy(void *dest, const void *src, size_t len)
+{
+  char *d = dest;
+  const char *s = src;
+  while (len--)
+    *d++ = *s++;
+  return dest;
+}
+/*void *realloc(void *ptr, size_t size)
 {
   void *new_data = NULL;
 
@@ -68,16 +88,6 @@ void *reallocf(void *ptr, size_t size)
 }
 
 void *
-memcpy(void *dest, const void *src, size_t len)
-{
-  char *d = dest;
-  const char *s = src;
-  while (len--)
-    *d++ = *s++;
-  return dest;
-}
-
-void *
 memmove(void *dest, const void *src, size_t len)
 {
   char *d = dest;
@@ -94,7 +104,14 @@ memmove(void *dest, const void *src, size_t len)
   }
   return dest;
 }
-
+*/
+void swap(int* a, int* b)  
+{  
+    int t = *a;  
+    *a = *b;  
+    *b = t;  
+}  
+  
 /*
 size_t int2size_t(int val) {
     return (val < 0) ? __SIZE_MAX__ : (size_t)((unsigned)val);
@@ -106,25 +123,28 @@ void kernel_main(void)
 
   uart_init();
   init_printf(0, putc);
-  printf("starting\n");
-  int64_t dst[NUMLENGTH];
-  size_t split_thresh = 16;
-  size_t heap_blocks = 256;
-  size_t alignment = 64;
-  printf("initing heap\n");
-  ta_init(LOW_MEMORY, HIGH_MEMORY, heap_blocks, split_thresh, alignment);
+  printf("Starting\n");
+  int dst[NUMLENGTH];
+  //size_t split_thresh = 16;
+  //size_t heap_blocks = 256;
+  //size_t alignment = 64;
+  //printf("initing heap\n");
+  //ta_init(LOW_MEMORY, HIGH_MEMORY, heap_blocks, split_thresh, alignment);
 
-  printf("entering for loop\n");
+  //printf("entering for loop\n");
   for (int i = 0; i < RUNS; i++)
   {
-    printf("Moving the numbers\n");
-    memcpy(dst, nums, sizeof(int64_t) * NUMLENGTH);
-    printf("Sorting the numbers #%d out of %d\n", i + 1, RUNS);
-    int64_quick_sort(dst, NUMLENGTH);
+    //printf("Moving the numbers\n");
+    memcpy(dst, nums, sizeof(int) * NUMLENGTH);
+    //printf("Sorting the numbers #%d out of %d\n", i + 1, RUNS);
+    //heapSort(dst, NUMLENGTH);
+    quickSort(dst, 0, NUMLENGTH - 1);
+    //mergeSort(dst, 0, NUMLENGTH - 1);
+    //bubbleSort(dst, NUMLENGTH);
   }
   printf("Sort is done\n");
-  for (int i = 0; i < NUMLENGTH; i++)
+  /*for (int i = 0; i < NUMLENGTH; i++)
   {
     printf("%d\n", dst[i]);
-  }
+  }*/
 }

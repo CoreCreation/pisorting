@@ -1,1 +1,1 @@
-extern int64_t nums[];
+extern int nums[];
