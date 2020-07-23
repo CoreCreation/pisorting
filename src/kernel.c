@@ -33,9 +33,9 @@
 #include "printf.h"
 
 //Change the input
-#include "10Best.h"
-#define NUMLENGTH 10000
-#define RUNS 1
+#include "100K10.h"
+#define NUMLENGTH 100000
+#define RUNS 20
 
 //These are the helper functions that the sorting algos need to run!
 // This function is required by printf function
@@ -137,8 +137,8 @@ void kernel_main(void)
     //printf("Moving the numbers\n");
     memcpy(dst, nums, sizeof(int) * NUMLENGTH);
     //printf("Sorting the numbers #%d out of %d\n", i + 1, RUNS);
-    //heapSort(dst, NUMLENGTH);
-    quickSort(dst, 0, NUMLENGTH - 1);
+    heapSort(dst, NUMLENGTH);
+    //quickSort(dst, 0, NUMLENGTH - 1);
     //mergeSort(dst, 0, NUMLENGTH - 1);
     //bubbleSort(dst, NUMLENGTH);
   }
