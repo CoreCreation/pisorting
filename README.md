@@ -1,8 +1,4 @@
 # pisorting
-```
-kernel_old=1
-disable_commandline_tags=1
-```
 This is working off of the system found at this repo:
 https://github.com/s-matyukevich/raspberry-pi-os
 
