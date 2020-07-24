@@ -1,3 +1,6 @@
+//Code from https://www.geeksforgeeks.org/
+//I am not sure about the license of this work
+
 void merge(int arr[], int l, int m, int r) 
 { 
     int i, j, k; 

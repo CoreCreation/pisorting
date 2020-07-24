@@ -1,3 +1,6 @@
+//Code from https://www.geeksforgeeks.org/
+//I am not sure about the license of this work
+
 void heapify(int arr[], int n, int i) 
 { 
     int largest = i; // Initialize largest as root 

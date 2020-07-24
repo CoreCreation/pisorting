@@ -1,3 +1,6 @@
+//Code from https://www.geeksforgeeks.org/
+//I am not sure about the license of this work
+
 /* This function takes last element as pivot, places  
 the pivot element at its correct position in sorted  
 array, and places all smaller (smaller than pivot)  
